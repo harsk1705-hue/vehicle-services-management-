@@ -1,0 +1,320 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1.0, user-scalable=yes"
+    />
+    <title>AutoService Pro | Advanced Vehicle Management</title>
+    <link rel="stylesheet" href="style.css" />
+    <link
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css"
+      rel="stylesheet"
+    />
+  </head>
+  <body>
+    <div class="app">
+      <!-- Redesigned Sidebar with All Features -->
+      <aside class="sidebar">
+        <div class="sidebar-header">
+          <div class="logo">
+            <i class="fas fa-car-side"></i>
+            <h2>AutoService<span>Pro</span></h2>
+          </div>
+          <p class="tagline">Intelligent Vehicle Management</p>
+        </div>
+
+        <!-- Quick Stats Section -->
+        <div class="quick-stats">
+          <h4><i class="fas fa-chart-simple"></i> Quick Status</h4>
+          <div class="stats-grid">
+            <div class="stat-card-mini">
+              <i class="fas fa-car"></i>
+              <div class="stat-info">
+                <span class="stat-label">Total Vehicles</span>
+                <span class="stat-value" id="totalVehicles">0</span>
+              </div>
+            </div>
+            <div class="stat-card-mini">
+              <i class="fas fa-rupee-sign"></i>
+              <div class="stat-info">
+                <span class="stat-label">Total Revenue</span>
+                <span class="stat-value" id="totalRevenue">₹0</span>
+              </div>
+            </div>
+            <div class="stat-card-mini">
+              <i class="fas fa-wrench"></i>
+              <div class="stat-info">
+                <span class="stat-label">Services Done</span>
+                <span class="stat-value" id="totalServices">0</span>
+              </div>
+            </div>
+            <div class="stat-card-mini">
+              <i class="fas fa-chart-line"></i>
+              <div class="stat-info">
+                <span class="stat-label">Avg. Cost</span>
+                <span class="stat-value" id="avgCost">₹0</span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Main Action Buttons -->
+        <div class="sidebar-actions">
+          <button class="sidebar-btn" onclick="showStatistics()">
+            <i class="fas fa-chart-bar"></i>
+            <div class="btn-content">
+              <span class="btn-title">Statistics</span>
+              <span class="btn-desc">View service statistics by model</span>
+            </div>
+          </button>
+
+          <button class="sidebar-btn" onclick="showAdvancedAnalysis()">
+            <i class="fas fa-chart-line"></i>
+            <div class="btn-content">
+              <span class="btn-title">Analytics</span>
+              <span class="btn-desc">Advanced data analysis</span>
+            </div>
+          </button>
+
+          <button class="sidebar-btn" onclick="findNearbyCenters()">
+            <i class="fas fa-map-marker-alt"></i>
+            <div class="btn-content">
+              <span class="btn-title">Find Centers</span>
+              <span class="btn-desc">Locate nearby service centers</span>
+            </div>
+          </button>
+
+          <button class="sidebar-btn" onclick="advancedSearch()">
+            <i class="fas fa-search"></i>
+            <div class="btn-content">
+              <span class="btn-title">Advanced Search</span>
+              <span class="btn-desc">Full-text search across records</span>
+            </div>
+          </button>
+
+          <button class="sidebar-btn" onclick="advancedFilter()">
+            <i class="fas fa-filter"></i>
+            <div class="btn-content">
+              <span class="btn-title">Advanced Filter</span>
+              <span class="btn-desc">Filter by multiple criteria</span>
+            </div>
+          </button>
+        </div>
+
+        <!-- MongoDB Features Badge -->
+        <div class="features-badge">
+          <i class="fas fa-database"></i>
+          <span>Powered by MongoDB Advanced Features</span>
+          <div class="feature-icons">
+            <i class="fas fa-chart-pie" title="Aggregation Pipeline"></i>
+            <i class="fas fa-map-marked-alt" title="Geospatial Indexing"></i>
+            <i class="fas fa-search" title="Full-text Search"></i>
+            <i class="fas fa-chart-line" title="Real-time Analytics"></i>
+          </div>
+        </div>
+      </aside>
+
+      <main class="main">
+        <!-- Enhanced Header -->
+        <header class="main-header">
+          <div class="header-top">
+            <div class="welcome-section">
+              <h1>
+                <i class="fas fa-tachometer-alt"></i>
+                Service & Maintenance Dashboard
+              </h1>
+              <p>
+                Manage vehicles, track services, and analyze performance with
+                advanced MongoDB features
+              </p>
+            </div>
+            <div class="header-stats">
+              <div class="stat-badge">
+                <i class="fas fa-clock"></i>
+                <span id="currentDateTime"></span>
+              </div>
+            </div>
+          </div>
+        </header>
+
+        <div class="dashboard-grid">
+          <!-- Add Vehicle Card - Enhanced -->
+          <div class="card add-card">
+            <div class="card-header">
+              <i class="fas fa-plus-circle"></i>
+              <h3>Add Vehicle & Service</h3>
+            </div>
+            <div class="card-body">
+              <div class="form-group">
+                <label><i class="fas fa-id-card"></i> Vehicle Number</label>
+                <input id="vehicleNumber" placeholder="e.g., KA01AB1234" />
+              </div>
+              <div class="form-row">
+                <div class="form-group">
+                  <label><i class="fas fa-car"></i> Model</label>
+                  <input id="model" placeholder="e.g., Toyota Camry" />
+                </div>
+                <div class="form-group">
+                  <label><i class="fas fa-user"></i> Owner Name</label>
+                  <input id="owner" placeholder="Full name" />
+                </div>
+              </div>
+              <div class="form-row">
+                <div class="form-group">
+                  <label><i class="fas fa-phone"></i> Phone</label>
+                  <input id="phone" placeholder="Mobile number" />
+                </div>
+                <div class="form-group">
+                  <label><i class="fas fa-wrench"></i> Service Type</label>
+                  <input id="serviceType" placeholder="e.g., Oil Change" />
+                </div>
+              </div>
+              <div class="form-group">
+                <label><i class="fas fa-rupee-sign"></i> Service Cost</label>
+                <input
+                  id="cost"
+                  type="number"
+                  min="1"
+                  placeholder="Amount in ₹"
+                />
+              </div>
+              <button
+                class="btn-primary btn-block"
+                onclick="addVehicleAndService()"
+              >
+                <i class="fas fa-save"></i> Save Vehicle & Service
+              </button>
+              <small class="note">
+                <i class="fas fa-map-marker-alt"></i> Location will be
+                auto-captured if enabled
+              </small>
+            </div>
+          </div>
+
+          <!-- Search Card - Enhanced -->
+          <div class="card search-card">
+            <div class="card-header">
+              <i class="fas fa-search"></i>
+              <h3>Quick Search</h3>
+            </div>
+            <div class="card-body">
+              <div class="search-box">
+                <i class="fas fa-id-card"></i>
+                <input
+                  id="searchVehicleNumber"
+                  placeholder="Enter vehicle number..."
+                />
+                <button class="btn-secondary" onclick="searchVehicle()">
+                  <i class="fas fa-search"></i> Search
+                </button>
+              </div>
+              <div id="searchOutput" class="search-results"></div>
+            </div>
+          </div>
+
+          <!-- Vehicle Records - Enhanced -->
+          <div class="card records-card">
+            <div class="card-header">
+              <div class="header-left">
+                <i class="fas fa-list-ul"></i>
+                <h3>Vehicle Records</h3>
+              </div>
+              <div class="header-controls">
+                <button
+                  class="btn-icon"
+                  onclick="loadVehicles(1)"
+                  title="Refresh"
+                >
+                  <i class="fas fa-sync-alt"></i>
+                </button>
+                <div class="sort-select">
+                  <i class="fas fa-sort"></i>
+                  <select id="sortBy" onchange="loadVehicles(1, this.value)">
+                    <option value="updatedAt">Last Updated</option>
+                    <option value="totalSpent">Total Spent</option>
+                    <option value="serviceCount">Service Count</option>
+                    <option value="model">Model</option>
+                  </select>
+                </div>
+              </div>
+            </div>
+            <div class="card-body">
+              <div id="output" class="vehicle-list"></div>
+            </div>
+          </div>
+        </div>
+      </main>
+    </div>
+
+    <!-- Enhanced Edit Modal -->
+    <div id="editModal" class="modal">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h3><i class="fas fa-edit"></i> Edit Vehicle</h3>
+          <span class="close" onclick="closeEditModal()">&times;</span>
+        </div>
+        <div class="modal-body">
+          <div class="form-group">
+            <label><i class="fas fa-id-card"></i> Vehicle Number</label>
+            <input id="editVehicleNumber" disabled />
+          </div>
+          <div class="form-group">
+            <label><i class="fas fa-car"></i> Model</label>
+            <input id="editModel" placeholder="Vehicle Model" />
+          </div>
+          <div class="form-row">
+            <div class="form-group">
+              <label><i class="fas fa-user"></i> Owner Name</label>
+              <input id="editOwner" placeholder="Owner Name" />
+            </div>
+            <div class="form-group">
+              <label><i class="fas fa-phone"></i> Phone</label>
+              <input id="editPhone" placeholder="Phone Number" />
+            </div>
+          </div>
+          <div class="form-row">
+            <div class="form-group">
+              <label><i class="fas fa-envelope"></i> Email</label>
+              <input id="editEmail" placeholder="Email (Optional)" />
+            </div>
+            <div class="form-group">
+              <label><i class="fas fa-map-marker-alt"></i> Address</label>
+              <input id="editAddress" placeholder="Address (Optional)" />
+            </div>
+          </div>
+          <div class="divider">
+            <span>Add New Service</span>
+          </div>
+          <div class="form-row">
+            <div class="form-group">
+              <label><i class="fas fa-wrench"></i> Service Type</label>
+              <input id="editServiceType" placeholder="Service Type" />
+            </div>
+            <div class="form-group">
+              <label><i class="fas fa-rupee-sign"></i> Cost</label>
+              <input id="editCost" type="number" min="1" placeholder="Cost" />
+            </div>
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button class="btn-secondary" onclick="closeEditModal()">
+            <i class="fas fa-times"></i> Cancel
+          </button>
+          <button class="btn-primary" onclick="updateVehicle()">
+            <i class="fas fa-save"></i> Save Changes
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Loading Overlay -->
+    <div id="loadingOverlay" class="loading-overlay hidden">
+      <div class="loader"></div>
+      <p>Processing...</p>
+    </div>
+
+    <script src="script.js"></script>
+  </body>
+</html>
